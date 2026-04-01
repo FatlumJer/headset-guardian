@@ -40,12 +40,31 @@ const Index = () => {
       status: "in-use",
     };
     setHeadsets((prev) => [newHeadset, ...prev]);
-    toast.success(`Headset ${fullId} registered to ${assignedTo}`);
+    toast.success(`Headset ${fullId} registered${assignedTo ? ` to ${assignedTo}` : ""}`);
   };
 
   const handleDelete = (id: string) => {
     setHeadsets((prev) => prev.filter((h) => h.id !== id));
     toast.info("Headset removed");
+  };
+
+  const handleExport = () => {
+    if (headsets.length === 0) {
+      toast.error("No headsets to export");
+      return;
+    }
+    const data = headsets.map((h) => ({
+      "Headset ID": `${h.prefix}-${h.number}`,
+      "Assigned To": h.assignedTo || "",
+      "Date Added": new Date(h.dateAdded).toLocaleDateString(),
+      Status: h.status === "in-use" ? "In Use" : "Available",
+    }));
+    const ws = XLSX.utils.json_to_sheet(data);
+    ws["!cols"] = [{ wch: 16 }, { wch: 24 }, { wch: 14 }, { wch: 12 }];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Headsets");
+    XLSX.writeFile(wb, "headsets.xlsx");
+    toast.success("Exported to Excel");
   };
 
   return (
