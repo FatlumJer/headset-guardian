@@ -38,7 +38,7 @@ const AddHeadsetForm = ({ onAdd }: AddHeadsetFormProps) => {
       className="rounded-lg border bg-card p-6 shadow-sm"
     >
       <div className="mb-5 flex items-center gap-2">
-        <Headphone className="h-5 w-5 text-primary" />
+        <Headphones className="h-5 w-5 text-primary" />
         <h2 className="text-lg font-semibold font-display text-card-foreground">
           Register Headset
         </h2>
