@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Headphone, Plus } from "lucide-react";
+import { Headphones, Plus } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface AddHeadsetFormProps {
