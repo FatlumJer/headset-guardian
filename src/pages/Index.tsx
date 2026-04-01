@@ -37,7 +37,7 @@ const Index = () => {
       number,
       assignedTo,
       dateAdded: new Date().toISOString(),
-      status: "in-use",
+      status: "deployable",
     };
     setHeadsets((prev) => [newHeadset, ...prev]);
     toast.success(`Headset ${fullId} registered${assignedTo ? ` to ${assignedTo}` : ""}`);
@@ -64,7 +64,7 @@ const Index = () => {
       "Headset ID": `${h.prefix}-${h.number}`,
       "Assigned To": h.assignedTo || "",
       "Date Added": new Date(h.dateAdded).toLocaleDateString(),
-      Status: h.status === "in-use" ? "In Use" : "Available",
+      Status: h.status.charAt(0).toUpperCase() + h.status.slice(1),
     }));
     const ws = XLSX.utils.json_to_sheet(data);
     ws["!cols"] = [{ wch: 16 }, { wch: 24 }, { wch: 14 }, { wch: 12 }];

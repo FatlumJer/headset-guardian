@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Trash2, Pencil, Check, X, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -44,9 +45,19 @@ const HeadsetTable = ({ headsets, onDelete, onUpdate }: HeadsetTableProps) => {
 
   const cancelEdit = () => setEditingId(null);
 
-  const toggleStatus = (hs: Headset) => {
-    onUpdate(hs.id, { status: hs.status === "in-use" ? "available" : "in-use" });
-  };
+  const statusOptions = [
+    { value: "deployable", label: "Deployable", color: "bg-accent/15 text-accent" },
+    { value: "in-use", label: "In Use", color: "bg-primary/15 text-primary" },
+    { value: "available", label: "Available", color: "bg-emerald-500/15 text-emerald-600" },
+    { value: "broken", label: "Broken", color: "bg-destructive/15 text-destructive" },
+    { value: "retired", label: "Retired", color: "bg-muted-foreground/15 text-muted-foreground" },
+  ] as const;
+
+  const getStatusStyle = (status: string) =>
+    statusOptions.find((s) => s.value === status)?.color ?? "bg-muted text-muted-foreground";
+
+  const getStatusLabel = (status: string) =>
+    statusOptions.find((s) => s.value === status)?.label ?? status;
 
   return (
     <div className="space-y-3">
@@ -132,21 +143,21 @@ const HeadsetTable = ({ headsets, onDelete, onUpdate }: HeadsetTableProps) => {
                       {new Date(hs.dateAdded).toLocaleDateString()}
                     </TableCell>
                     <TableCell>
-                      <button
-                        onClick={() => toggleStatus(hs)}
-                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium cursor-pointer transition-colors ${
-                          hs.status === "available"
-                            ? "bg-accent/15 text-accent hover:bg-accent/25"
-                            : "bg-primary/15 text-primary hover:bg-primary/25"
-                        }`}
+                      <Select
+                        value={hs.status}
+                        onValueChange={(val) => onUpdate(hs.id, { status: val as Headset["status"] })}
                       >
-                        <span
-                          className={`h-1.5 w-1.5 rounded-full ${
-                            hs.status === "available" ? "bg-accent" : "bg-primary"
-                          }`}
-                        />
-                        {hs.status === "available" ? "Available" : "In Use"}
-                      </button>
+                        <SelectTrigger className={`h-7 w-[130px] border-none text-xs font-medium rounded-full ${getStatusStyle(hs.status)}`}>
+                          <SelectValue>{getStatusLabel(hs.status)}</SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          {statusOptions.map((opt) => (
+                            <SelectItem key={opt.value} value={opt.value} className="text-xs">
+                              {opt.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-0.5">
