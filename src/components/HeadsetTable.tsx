@@ -143,21 +143,21 @@ const HeadsetTable = ({ headsets, onDelete, onUpdate }: HeadsetTableProps) => {
                       {new Date(hs.dateAdded).toLocaleDateString()}
                     </TableCell>
                     <TableCell>
-                      <button
-                        onClick={() => toggleStatus(hs)}
-                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium cursor-pointer transition-colors ${
-                          hs.status === "available"
-                            ? "bg-accent/15 text-accent hover:bg-accent/25"
-                            : "bg-primary/15 text-primary hover:bg-primary/25"
-                        }`}
+                      <Select
+                        value={hs.status}
+                        onValueChange={(val) => onUpdate(hs.id, { status: val as Headset["status"] })}
                       >
-                        <span
-                          className={`h-1.5 w-1.5 rounded-full ${
-                            hs.status === "available" ? "bg-accent" : "bg-primary"
-                          }`}
-                        />
-                        {hs.status === "available" ? "Available" : "In Use"}
-                      </button>
+                        <SelectTrigger className={`h-7 w-[130px] border-none text-xs font-medium rounded-full ${getStatusStyle(hs.status)}`}>
+                          <SelectValue>{getStatusLabel(hs.status)}</SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          {statusOptions.map((opt) => (
+                            <SelectItem key={opt.value} value={opt.value} className="text-xs">
+                              {opt.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-0.5">
