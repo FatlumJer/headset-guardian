@@ -81,11 +81,10 @@ const AddHeadsetForm = ({ onAdd }: AddHeadsetFormProps) => {
             Assigned To
           </Label>
           <Input
-            placeholder="Name of user"
+            placeholder="Name of user (optional)"
             value={assignedTo}
             onChange={(e) => setAssignedTo(e.target.value)}
             maxLength={100}
-            required
           />
         </div>
 
