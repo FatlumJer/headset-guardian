@@ -82,8 +82,14 @@ const Index = () => {
               Manage fixed headsets &amp; assignments
             </p>
           </div>
-          <div className="ml-auto font-mono text-sm text-muted-foreground">
-            {headsets.length} registered
+          <div className="ml-auto flex items-center gap-3">
+            <span className="font-mono text-sm text-muted-foreground">
+              {headsets.length} registered
+            </span>
+            <Button variant="outline" size="sm" className="gap-1.5" onClick={handleExport}>
+              <Download className="h-4 w-4" />
+              Export
+            </Button>
           </div>
         </div>
       </header>
