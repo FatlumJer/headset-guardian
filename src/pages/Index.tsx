@@ -103,7 +103,7 @@ const Index = () => {
 
       <main className="container py-8 space-y-6">
         <AddHeadsetForm onAdd={handleAdd} />
-        <HeadsetTable headsets={headsets} onDelete={handleDelete} />
+        <HeadsetTable headsets={headsets} onDelete={handleDelete} onUpdate={handleUpdate} />
       </main>
     </div>
   );
