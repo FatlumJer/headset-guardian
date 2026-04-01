@@ -24,7 +24,7 @@ const AddHeadsetForm = ({ onAdd }: AddHeadsetFormProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!number.trim() || !assignedTo.trim()) return;
+    if (!number.trim()) return;
     onAdd(prefix, number.trim().padStart(4, "0"), assignedTo.trim());
     setNumber("");
     setAssignedTo("");
@@ -81,11 +81,10 @@ const AddHeadsetForm = ({ onAdd }: AddHeadsetFormProps) => {
             Assigned To
           </Label>
           <Input
-            placeholder="Name of user"
+            placeholder="Name of user (optional)"
             value={assignedTo}
             onChange={(e) => setAssignedTo(e.target.value)}
             maxLength={100}
-            required
           />
         </div>
 
