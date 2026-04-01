@@ -37,7 +37,7 @@ const Index = () => {
       number,
       assignedTo,
       dateAdded: new Date().toISOString(),
-      status: "in-use",
+      status: "deployable",
     };
     setHeadsets((prev) => [newHeadset, ...prev]);
     toast.success(`Headset ${fullId} registered${assignedTo ? ` to ${assignedTo}` : ""}`);

@@ -6,5 +6,5 @@ export interface Headset {
   number: string; // e.g. "0001"
   assignedTo: string;
   dateAdded: string;
-  status: "available" | "in-use";
+  status: "deployable" | "in-use" | "available" | "broken" | "retired";
 }
