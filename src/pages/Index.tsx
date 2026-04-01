@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { Headset, HeadsetPrefix } from "@/types/headset";
 import AddHeadsetForm from "@/components/AddHeadsetForm";
 import HeadsetTable from "@/components/HeadsetTable";
-import { Headphones } from "lucide-react";
+import { Headphones, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import * as XLSX from "xlsx";
 
 const STORAGE_KEY = "headset-tracker";
 
