@@ -45,9 +45,19 @@ const HeadsetTable = ({ headsets, onDelete, onUpdate }: HeadsetTableProps) => {
 
   const cancelEdit = () => setEditingId(null);
 
-  const toggleStatus = (hs: Headset) => {
-    onUpdate(hs.id, { status: hs.status === "in-use" ? "available" : "in-use" });
-  };
+  const statusOptions = [
+    { value: "deployable", label: "Deployable", color: "bg-accent/15 text-accent" },
+    { value: "in-use", label: "In Use", color: "bg-primary/15 text-primary" },
+    { value: "available", label: "Available", color: "bg-emerald-500/15 text-emerald-600" },
+    { value: "broken", label: "Broken", color: "bg-destructive/15 text-destructive" },
+    { value: "retired", label: "Retired", color: "bg-muted-foreground/15 text-muted-foreground" },
+  ] as const;
+
+  const getStatusStyle = (status: string) =>
+    statusOptions.find((s) => s.value === status)?.color ?? "bg-muted text-muted-foreground";
+
+  const getStatusLabel = (status: string) =>
+    statusOptions.find((s) => s.value === status)?.label ?? status;
 
   return (
     <div className="space-y-3">
