@@ -24,7 +24,7 @@ const AddHeadsetForm = ({ onAdd }: AddHeadsetFormProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!number.trim() || !assignedTo.trim()) return;
+    if (!number.trim()) return;
     onAdd(prefix, number.trim().padStart(4, "0"), assignedTo.trim());
     setNumber("");
     setAssignedTo("");
