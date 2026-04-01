@@ -48,6 +48,13 @@ const Index = () => {
     toast.info("Headset removed");
   };
 
+  const handleUpdate = (id: string, updates: Partial<Pick<Headset, "assignedTo" | "status">>) => {
+    setHeadsets((prev) =>
+      prev.map((h) => (h.id === id ? { ...h, ...updates } : h))
+    );
+    toast.success("Headset updated");
+  };
+
   const handleExport = () => {
     if (headsets.length === 0) {
       toast.error("No headsets to export");
@@ -96,7 +103,7 @@ const Index = () => {
 
       <main className="container py-8 space-y-6">
         <AddHeadsetForm onAdd={handleAdd} />
-        <HeadsetTable headsets={headsets} onDelete={handleDelete} />
+        <HeadsetTable headsets={headsets} onDelete={handleDelete} onUpdate={handleUpdate} />
       </main>
     </div>
   );
